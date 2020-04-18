@@ -1,0 +1,23 @@
+@-webkit-keyframes stripe-slide {
+  from {
+    background-position: 0% 0; }
+  to {
+    background-position: 100% 0; } }
+
+@-moz-keyframes stripe-slide {
+  from {
+    background-position: 0% 0; }
+  to {
+    background-position: 100% 0; } }
+
+@-o-keyframes stripe-slide {
+  from {
+    background-position: 0% 0; }
+  to {
+    background-position: 100% 0; } }
+
+@keyframes stripe-slide {
+  from {
+    background-position: 0% 0; }
+  to {
+    background-position: 100% 0; } }
