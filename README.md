@@ -13,7 +13,7 @@ $ ./node_modules/.bin/pug ./app/login.pug -o ./dist/ -P
 讓編譯出來的html自動排版
 * Compile `./app/login.sass` to `./dist/login.css`
 ```
-$ /node_modules/.bin/node-sass ./app/login.sass -o dist
+$ ./node_modules/.bin/node-sass ./app/login.sass -o dist
 ```
 ## Step2: Start server
 ```
