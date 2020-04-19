@@ -9,7 +9,10 @@ html
   body
     form(id="typein")
       input(id="name_input", type="text", name="name", placeholder="YOUR NAME")
+      br
       input(id="password_input", type="password", name="password", placeholder="YOUR PASSWORD")
+      br
+      button(class="btn btn--stripe", id="login", type="submit") Log in
     h1(id="ajax-output")
     h1(id="pic")
     script(src="./log.js")
