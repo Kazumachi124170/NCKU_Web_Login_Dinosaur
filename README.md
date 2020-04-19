@@ -18,6 +18,10 @@ $ npm i
   ```
   $ ./node_modules/.bin/node-sass ./app/login.sass -o dist
   ```
+* Compile `./app/login.ts` to `./dist/log.js`
+```
+  $ ./node_modules/.bin/babel ./app/login.ts -o ./dist/log.js --extensions ".ts"
+```
   
 ## Step2: Start server
 ```
