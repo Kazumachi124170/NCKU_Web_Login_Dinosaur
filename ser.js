@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
-const port = 7888
-
+const port = 6554
+var exist=false
 var firebaseConfig = {
   //apiKey: "AIzaSyCFZm71gA1VwC3gRLwgcuDPeZI-06GLxj4",
   //authDomain:"test1-20b63.firebaseapp.com",
@@ -34,13 +34,13 @@ var members_kid = [
 
 app.use(express.static(`${__dirname}/dist`))
 
+
 app.get('/login', (req, res) => {
  
-  var exist=false;
+  exist=false;
   var search = 'parent/'+req.query.name+"/password/";
   database.ref(search).once('value',v=>{
     if(v.val()==req.query.password){
-      exist=true;
       database.ref('parent/'+req.query.name+'/').once('value',data=>{
         var kid_ = data.val().kid;
         var gender_ = data.val().gender;
@@ -55,46 +55,38 @@ app.get('/login', (req, res) => {
       });
     }
   });
-
-  if(exist==false){
-    search = 'kid/'+req.query.name+"/password/";
-    database.ref(search).once('value',v=>{
-      if(v.val()==req.query.password){
-        exist=true;
-        database.ref('kid/'+req.query.name+'/').once('value',data=>{
-          var parent_ = data.val().parent;
-          var pic_ = data.val().pic;
-          res.send(`
-            {
-              "text":"<h1>HELLO! ${parent_}'s baby, ${req.query.name}</h1>",
-              "exist": true,
-              "pic": ${pic_}
-            } 
-          `)
-        });
-      }
-      /*
-      else{
+  var search_ = 'kid/'+req.query.name+"/password/";
+  database.ref(search_).once('value',v=>{
+    if(v.val()==req.query.password){
+      database.ref('kid/'+req.query.name+'/').once('value',data=>{
+        var parent_ = data.val().parent;
+        var pic_ = data.val().pic;
         res.send(`
           {
-            "text":" eeee",
-            "exist":false
-          }
+            "text":"<h1>HELLO! ${parent_}'s baby, ${req.query.name}</h1>",
+            "exist": true,
+            "pic": ${pic_}
+          } 
         `)
-      }*/
-    });
+      });
+    }
+  });
 
-  }
-  /*
-  if(exist==false){
-    return res.send(`
-      {
-        "text": "Wrong password or name~!",
-        "exist":false
-      }
-    `)
-  }
-  */ 
+  database.ref(search).once('value',v1=>{
+    if(v1.val()!=req.query.password){
+      database.ref(search_).once('value',v2=>{
+        if(v2.val()!=req.query.password){
+          res.send(`
+            {
+              "text":"Wrong password or name~!",
+              "exist":false
+            }
+          `)
+        }
+      });
+    }
+  });
+
   /*
   var exist=false;
   for(var i=0; i<members_parent.length; i++){
